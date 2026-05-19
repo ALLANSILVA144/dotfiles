@@ -1,0 +1,40 @@
+#! /bin/zsh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+# 1. Essential Hotkey Daemon (Required for keybindings)
+sxhkd &
+
+# 2. Compositor (For shadows/transparency)
+picom &
+
+# 3. Wallpaper (feh or nitrogen)
+feh --bg-fill /home/faber/Pictures/1394000.png &
+
+# 4. Status Bar (Polybar, Lemonbar, etc.)
+polybar &
+
+# 5. Other Utils
+dunst &           # Notifications
+nm-applet &      # Network Manager tray icon
+
+# 6. My Fcitx5
+fcitx5 -d &
+
+# 7. Power Manager
+xfce4-power-manager &
